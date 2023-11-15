@@ -1,0 +1,7 @@
+bazbar()
+{
+    echo "Magic!"
+    echo "bazbar"
+}
+
+modules+=( bazbar )
