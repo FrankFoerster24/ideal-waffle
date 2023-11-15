@@ -1,0 +1,15 @@
+---
+name: Test
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Execute tests
+        run: |
+          ./test.sh
