@@ -5,6 +5,25 @@ on:
   pull_request:
 
 jobs:
+  find-tests:
+    runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.find_tests.outputs.tests }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Find Tests
+        id: find_tests
+        run: |
+          {
+            echo 'tests<<EOF'
+            {
+              echo '{ "include": ['
+              ls modules/*.test |sed -e 's%^modules/%{ "test": "%' -e '$ ! s%.test$%" },%' -e '$s%.test$%" }%'
+              echo ']}'
+            } |jq .
+            echo 'EOF'
+          } |tee "${GITHUB_OUTPUT}"
   test:
     runs-on: ubuntu-latest
     steps:
