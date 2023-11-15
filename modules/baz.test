@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+source "errors.sh"
+
+my_name="${0##*/}"
+echo -en "Executing tests in ${my_name}..."
+
+declare -a modules
+source modules/baz.module
+
+"${modules[0]}" |grep -q '^Magic!$'
+"${modules[0]}" |grep -q '^bazbar$'
+
+echo " done."
