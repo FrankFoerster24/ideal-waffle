@@ -38,3 +38,11 @@ jobs:
           TEST: ${{ matrix.test }}
         run: |
           ./test.sh
+  test-success:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - name: "Success!"
+        run: |
+          echo "We did it!"
