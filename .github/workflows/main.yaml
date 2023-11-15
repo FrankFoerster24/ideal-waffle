@@ -26,9 +26,15 @@ jobs:
           } |tee "${GITHUB_OUTPUT}"
   test:
     runs-on: ubuntu-latest
+    needs:
+      - find-tests
+    strategy:
+      matrix: ${{ fromJson(needs.find-tests.outputs.tests) }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Execute tests
+        env:
+          TEST: ${{ matrix.test }}
         run: |
           ./test.sh
